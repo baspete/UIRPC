@@ -45,7 +45,7 @@ UIRPC.list = function(){
           doSomething(data)
 
           // this is onSuccess.returnValue
-          cb("this is the callback text"); 
+          cb("this is the callback text");
 
         },
         isAsynchronous: this.asynchronous
