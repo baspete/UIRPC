@@ -18,6 +18,13 @@
         return new F;
       };
     }
+    // create a map of all elements in a form
+    if(typeof $.mapForm !== "function"){
+      $.mapForm = function(form) {
+        return $.deparam(form.serialize());
+      };
+    }
+    
     // END UTILITY METHODS
     
   </script>

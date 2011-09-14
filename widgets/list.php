@@ -7,7 +7,7 @@ Registered Methods:
 action: displayData
 params: {
   action: [display, clear],
-  parameters: {
+  settings: {
     sortBy: {
      key: [age, firstName, lastName],
      order: [a, d]
@@ -43,9 +43,7 @@ UIRPC.list = function(){
   // private
   var doSomething = function(data) {
     var paramed = unescape($.param(data));
-    console.log("paramed ", paramed);
-    var deparamed = $.deparam(paramed);
-    console.log("deparamed ", deparamed);
+    console.log("do something with ", paramed);
   };
 
   return {

@@ -9,11 +9,30 @@
 UIRPC.filter = function() {
   
   // private properties and methods
+
+  var settings = {
+    sortBy: {
+      key: "lastName",
+      order: "a"
+    },
+    filter: {
+      age: {
+        from:0,
+        to:100
+      }
+    }
+  };
+  
   var publish = function(settings, context){
     pmrpc.call({
       destination : context,
       publicProcedureName : "displayData",
-      params : settings,
+      params : {
+        data: {
+          action: "display",
+          settings: settings
+        }
+      },
       onSuccess: function(cb) {
         console.log("Yay, " + cb.status + "! ", cb.returnValue)
       },
@@ -23,46 +42,33 @@ UIRPC.filter = function() {
     });
   };
   
+  var updateAndPublish = function(s){
+    settings = $.extend(true,settings,s);
+    publish(settings, window);
+  };
+  
   return {
     
     // public properties & methods
     
-    settings: {
-      data : {
-        action: "display",
-        params: {
-          sortBy: {
-            key: "lastName",
-            order: "a"
-          },
-          filter: {
-            age: {
-              from:0,
-              to:100
-            }
-          }
-        }
-      }
-    },
-    
     createMarkup: function(){
-      var m = $("<form/>").addClass("filter");
+      var f = $("<form/>").addClass("filter");
       // plus a bunch of stuff
-      m.append("Min Age: <input type='text' name='params[filter][age][from]' />");
+      f.append("Min Age: <input type='text' name='filter[age][from]' />");
       var b = $("<input type='button' value='filter'/>").bind("click",function(){
-        console.log($.mapForm(m));
+        updateAndPublish($.mapForm(f));
       });
-      m.append(b);
-      return m;
+      f.append(b);
+      return f;
     },
     
     init: function(location, options) {
 
       // create the markup and insert it into the dom
-      location.append(this.createMarkup());      
+      location.append(this.createMarkup());
 
       // publish the intial settings
-      publish(this.settings, window);
+      publish(settings, window);
       
     }
 
