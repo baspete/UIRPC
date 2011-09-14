@@ -50,8 +50,9 @@ UIRPC.filter = function() {
       // plus a bunch of stuff
       m.append("Min Age: <input type='text' name='params[filter][age][from]' />");
       var b = $("<input type='button' value='filter'/>").bind("click",function(){
-        
+        console.log($.mapForm(m));
       });
+      m.append(b);
       return m;
     },
     
