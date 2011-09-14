@@ -20,6 +20,18 @@
     // END UTILITY METHODS
     
   </script>
+  <style type="text/css">
+    body {
+      font-family: arial, sans-serif;
+    }
+    #left {
+      float: left;
+      width: 150px;
+    }
+    #main {
+      margin-left: 160px;
+    }
+  </style>
 </head>
 <body>
 
@@ -30,13 +42,17 @@ include 'widgets/list.php';
 include 'widgets/filter.php';
 ?>
 
+<!--containers-->
+<div id="left"></div>
+<div id="main"></div>
+
 <script>
 // INITIALIZE COMPONENTS
  $(document).ready(function(){
-   var people = Object.create(UIRPC.list);
-   people.init();
    var peopleFilter = Object.create(UIRPC.filter);
-   peopleFilter.init();
+   peopleFilter.init($("#left"));
+   var people = Object.create(UIRPC.list);
+   people.init($("#main"));
  });
 </script>
 

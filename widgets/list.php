@@ -30,6 +30,13 @@ cb.returnValue: <numResults>
 
 */
 ?>
+<style type="text/css">
+.list {
+  border: 1px solid #CCCCCC;
+  padding: 10px;
+}
+</style>
+
 <script>
 UIRPC.list = function(){
 
@@ -40,12 +47,41 @@ UIRPC.list = function(){
 
   return {
     
-    // public propterties
+    // public propterties & methods
     procedureName: "displayData",
     asynchronous: true,
     
-    // public methods
-    init: function() {
+    categories: [
+      {
+        "title":"First Name",
+        "class":"firstName"
+      },
+      {
+        "title":"Last Name",
+        "class":"lastName"
+      },
+      {
+        "title":"Age",
+        "class":"age"
+      }
+    ],
+    
+    createMarkup: function(){
+      var m = $("<div/>").addClass("list");
+      var table = $("<table/>");
+      var thead = $("<tr>");
+      for(var i=0;i<this.categories.length;i++){
+        thead.append("<th class='"+this.categories[i].class+"'>"+this.categories[i].title+"</th>")
+      }
+      table.append(thead);
+      m.append(table);
+      return m;
+    },
+    
+    init: function(location) {
+      
+      // create the markup and insert it into the dom
+      location.append(this.createMarkup())
       
       // register the object
       pmrpc.register({
