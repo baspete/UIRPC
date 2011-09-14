@@ -46,15 +46,19 @@ UIRPC.filter = function() {
     },
     
     createMarkup: function(){
-      var m = $("<div/>").addClass("filter");
+      var m = $("<form/>").addClass("filter");
       // plus a bunch of stuff
+      m.append("Min Age: <input type='text' name='params[filter][age][from]' />");
+      var b = $("<input type='button' value='filter'/>").bind("click",function(){
+        
+      });
       return m;
     },
     
-    init: function(location) {
+    init: function(location, options) {
 
       // create the markup and insert it into the dom
-      location.append(this.createMarkup())
+      location.append(this.createMarkup());      
 
       // publish the intial settings
       publish(this.settings, window);

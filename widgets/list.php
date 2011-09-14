@@ -42,7 +42,10 @@ UIRPC.list = function(){
 
   // private
   var doSomething = function(data) {
-    console.log("I'm doing something with ", unescape($.param(data)));
+    var paramed = unescape($.param(data));
+    console.log("paramed ", paramed);
+    var deparamed = $.deparam(paramed);
+    console.log("deparamed ", deparamed);
   };
 
   return {
@@ -78,7 +81,7 @@ UIRPC.list = function(){
       return m;
     },
     
-    init: function(location) {
+    init: function(location, options) {
       
       // create the markup and insert it into the dom
       location.append(this.createMarkup())
@@ -101,6 +104,7 @@ UIRPC.list = function(){
 
       
     } // end init
+    
   }; // end return
   
 }();

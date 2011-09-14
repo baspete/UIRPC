@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8" />
   <script src="js/jquery.js"></script>
+  <script src="js/jquery.ba-bbq.min.js"></script>	
   <script src="js/pmrpc.js"></script>	
   <script>
     // NAMESPACE
