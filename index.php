@@ -31,6 +31,7 @@ include 'widgets/filter.php';
 ?>
 
 <script>
+// INITIALIZE COMPONENTS
  $(document).ready(function(){
    var people = Object.create(UIRPC.list);
    people.init();
@@ -40,12 +41,14 @@ include 'widgets/filter.php';
 </script>
 
 <script>
+  // WHAT SERVICES ARE AVAILABLE?
   pmrpc.discover({
     callback : function(discoveredMethods) {
-      console.log("Discovered Methods:");
+      var services = [];
       $(discoveredMethods).each(function(){
-        console.log(this.publicProcedureName);
+        services.push(this.publicProcedureName);
       })
+      console.log("Services Available:", services);
     }
   });
 </script>

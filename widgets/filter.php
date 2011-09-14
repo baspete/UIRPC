@@ -2,24 +2,11 @@
 UIRPC.filter = function() {
   
   // private
-  var refresh = function(){
+  var publish = function(settings, context){
     pmrpc.call({
-      destination : window,
+      destination : context,
       publicProcedureName : "displayData",
-      params : {
-        data : {
-          action: "display",
-          params: {
-            sortBy: {
-              field: "lastName",
-              order: "ascending"
-            },
-            filter: {
-              age: {min:0,max:100},
-            }
-          }
-        }
-      },
+      params : settings,
       onSuccess: function(cb) {
         console.log("Yay, " + cb.status + "! ", cb.returnValue)
       },
@@ -32,8 +19,27 @@ UIRPC.filter = function() {
   return {
     
     // public
+    
+    settings: {
+      data : {
+        action: "display",
+        params: {
+          sortBy: {
+            key: "lastName",
+            order: "a"
+          },
+          filter: {
+            age: {
+              from:0,
+              to:100
+            }
+          }
+        }
+      }
+    },
+    
     init: function() {
-      refresh();
+      publish(this.settings, window);
     }
 
   }; // end return

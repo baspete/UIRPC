@@ -8,10 +8,22 @@ action: displayData
 params: {
   action: [display, clear],
   parameters: {
-    sortBy: [age, firstName, lastName],
-    age: {from,to},
-    firstName: {from,to},
-    lastName: {from,to}
+    sortBy: {
+     key: [age, firstName, lastName],
+     order: [a, d]
+    },
+    age: {
+      from: <value>,
+      to: <value>
+    },
+    firstName: {
+      from: <value>,
+      to: <value>
+    },
+    lastName: {
+      from: <value>,
+      to: <value>
+    }
   }
 }
 cb.returnValue: <numResults>
@@ -23,7 +35,7 @@ UIRPC.list = function(){
 
   // private
   var doSomething = function(data) {
-    console.log("I'm doing something with ", data);
+    console.log("I'm doing something with ", unescape($.param(data)));
   };
 
   return {
@@ -37,7 +49,7 @@ UIRPC.list = function(){
       
       // register the object
       pmrpc.register({
-        publicProcedureName: "displayData",
+        publicProcedureName: this.procedureName,
         procedure: function (data, cb) { 
           console.log("listener received: ", data);
 
