@@ -68,26 +68,15 @@
 // SIMPLE WIDGET FACTORY
 $(".widget").each(function(){
   var target = $(this);
-  var options = {};
+  var options = {}; // TODO: how to populate this usefully?
   var classNames = target.attr("class").split(" ");
   var className = classNames[1]; // class name is the second argument -- others are ignored
   $.getScript("widgets/"+className+".js", function(){ // note same origin limitation here
-    $(document).ready(function(){
-      console.log("creating "+className+" object")
-      var widget = Object.create(eval("UIRPC."+className))
-      widget.init(target, options)
-    })
+    console.log("creating "+className+" object")
+    var widget = Object.create(eval("UIRPC."+className))
+    widget.init(target, options)
   });
 });
-
-
-// INITIALIZE COMPONENTS
-/*
- $(document).ready(function(){
-   var peopleFilter = Object.create(UIRPC.filter);
-   peopleFilter.init($("#left"));
- });
-*/
 </script>
 
 <script>
