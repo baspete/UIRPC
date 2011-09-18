@@ -1,4 +1,3 @@
-<?php
 /*
 List widget - displays a list of things
 
@@ -29,15 +28,8 @@ params: {
 cb.returnValue: <numResults>
 
 */
-?>
-<style type="text/css">
-.list {
-  border: 1px solid #CCCCCC;
-  padding: 10px;
-}
-</style>
 
-<script>
+
 UIRPC.list = function(){
 
   // private
@@ -106,4 +98,3 @@ UIRPC.list = function(){
   }; // end return
   
 }();
-</script>

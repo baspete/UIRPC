@@ -8,6 +8,8 @@
   <script>
     // NAMESPACE
     var UIRPC = {};
+    // REGISTERED WIDGETS ARRAY
+    UIRPC.registeredWidgets = [];
     
     // UTILITY METHODS
     // "create" method to allow prototypical inheritance
@@ -24,9 +26,20 @@
         return $.deparam(form.serialize());
       };
     }
-    
+    // flatten an object to a set of key/value pairs
+    if(typeof $.flatten !== "function"){
+      $.flatten = function(map){
+        var s = $.param(map).split("&");
+        var flatMap = {};
+        for(var i=0;i<s.length;i++){
+          var item = s[i].split("=");
+          flatMap[unescape(item[0])] = item[1]
+        }
+        return flatMap;
+      };
+    }
     // END UTILITY METHODS
-    
+        
   </script>
   <style type="text/css">
     body {
@@ -43,38 +56,53 @@
 </head>
 <body>
 
-
-<?php
-// PAGE COMPONENTS
-include 'widgets/list.php';
-include 'widgets/filter.php';
-?>
-
 <!--containers-->
-<div id="left"></div>
-<div id="main"></div>
+<div id="left">
+  <div id="people_filter" class="widget filter"></div>
+</div>
+<div id="main">
+  <div id="list_people" class="widget list"></div>
+</div>
 
 <script>
+// SIMPLE WIDGET FACTORY
+$(".widget").each(function(){
+  var target = $(this);
+  var options = {};
+  var classNames = target.attr("class").split(" ");
+  var className = classNames[1]; // class name is the second argument -- others are ignored
+  $.getScript("widgets/"+className+".js", function(){ // note same origin limitation here
+    $(document).ready(function(){
+      console.log("creating "+className+" object")
+      var widget = Object.create(eval("UIRPC."+className))
+      widget.init(target, options)
+    })
+  });
+});
+
+
 // INITIALIZE COMPONENTS
+/*
  $(document).ready(function(){
    var peopleFilter = Object.create(UIRPC.filter);
    peopleFilter.init($("#left"));
-   var people = Object.create(UIRPC.list);
-   people.init($("#main"));
  });
+*/
 </script>
 
 <script>
   // WHAT SERVICES ARE AVAILABLE?
-  pmrpc.discover({
-    callback : function(discoveredMethods) {
-      var services = [];
-      $(discoveredMethods).each(function(){
-        services.push(this.publicProcedureName);
-      })
-      console.log("Services Available:", services);
-    }
-  });
+  $(document).ready(function(){
+    pmrpc.discover({
+      callback : function(discoveredMethods) {
+        var services = [];
+        $(discoveredMethods).each(function(){
+          services.push(this.publicProcedureName);
+        })
+        console.log("Services Available:", services);
+      }
+    });
+  })
 </script>
 </body>
 </html>
