@@ -48,7 +48,6 @@ UIRPC.filter = function() {
       var flatSettings = $.flatten(settings);
       // form element markup
       var f = $("<form/>").addClass("filter");
-      f.append("Min Age: <input type='text' name='filter[age][from]' value='"+ flatSettings['filter[age][from]'] +"'/>");
       f.append("Max Age: <input type='text' name='filter[age][to]'  value='"+ flatSettings['filter[age][to]'] +"'/>");
       var b = $("<input type='button' value='filter'/>").bind("click",function(){
         updateAndPublish($.mapForm(f));

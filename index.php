@@ -3,13 +3,11 @@
 <head>
 	<meta charset="utf-8" />
   <script src="js/jquery.js"></script>
-  <script src="js/jquery.ba-bbq.min.js"></script>	
-  <script src="js/pmrpc.js"></script>	
+  <script src="js/jquery.ba-bbq.min.js"></script>	<!-- loaded so we have $.deparam() - don't need all of it, refactor! -->
+  <script src="js/pmrpc.js"></script>	 <!-- postmessage syntactic sugar -->
   <script>
     // NAMESPACE
     var UIRPC = {};
-    // REGISTERED WIDGETS ARRAY
-    UIRPC.registeredWidgets = [];
     
     // UTILITY METHODS
     // "create" method to allow prototypical inheritance
@@ -56,6 +54,13 @@
 </head>
 <body>
 
+<!--
+<div id="userName" class="widget facebook_auth"></div>
+-->
+
+<!-- workers -->
+<div class="widget people"></div>
+
 <!--containers-->
 <div id="left">
   <div id="people_filter" class="widget filter"></div>
@@ -65,18 +70,18 @@
 </div>
 
 <script>
-// SIMPLE WIDGET FACTORY
-$(".widget").each(function(){
-  var target = $(this);
-  var options = {}; // TODO: how to populate this usefully?
-  var classNames = target.attr("class").split(" ");
-  var className = classNames[1]; // class name is the second argument -- others are ignored
-  $.getScript("widgets/"+className+".js", function(){ // note same origin limitation here
-    console.log("creating "+className+" object")
-    var widget = Object.create(eval("UIRPC."+className))
-    widget.init(target, options)
+  // SIMPLE WIDGET FACTORY
+  $(".widget").each(function(){
+    var target = $(this);
+    var options = {}; // TODO: how to populate this usefully?
+    var classNames = target.attr("class").split(" ");
+    var className = classNames[1]; // class name is the second argument -- others are ignored
+    $.getScript("widgets/"+className+".js", function(){ // note same origin limitation here
+      console.log("creating "+className+" object")
+      var widget = Object.create(eval("UIRPC."+className))
+      widget.init(target, options)
+    });
   });
-});
 </script>
 
 <script>

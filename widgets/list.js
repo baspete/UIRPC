@@ -3,29 +3,23 @@ List widget - displays a list of things
 
 Registered Methods:
 
-action: displayData
-params: {
-  action: [display, clear],
-  settings: {
-    sortBy: {
-     key: [age, firstName, lastName],
-     order: [a, d]
-    },
-    age: {
-      from: <value>,
-      to: <value>
-    },
-    firstName: {
-      from: <value>,
-      to: <value>
-    },
-    lastName: {
-      from: <value>,
-      to: <value>
+  "displayData" - given a set of params, displays the results in a table
+
+  action: displayData
+  params: {
+    action: [display, clear],
+    settings: {
+      sortBy: {
+       key: [age, firstName, lastName],
+       order: [a, d]
+      },
+      age: {
+        from: <value>,
+        to: <value>
+      }
     }
   }
-}
-cb.returnValue: <numResults>
+  cb.returnValue: <numResults>
 
 */
 
@@ -33,10 +27,54 @@ cb.returnValue: <numResults>
 UIRPC.list = function(){
 
   // private
-  var doSomething = function(data) {
+  var populateList = function(data, location) {
     var paramed = unescape($.param(data));
-    console.log("do something with ", paramed);
+    pmrpc.call({
+      destination : window,
+      publicProcedureName : "getPeople",
+      params : {
+        data: data.settings
+      },
+      onSuccess: function(cb) {
+        console.log("getPeople "+cb.status +" with the message : ", cb.returnValue);
+        createMarkup(cb.returnValue, location)
+      },
+      onError: function(cb) {
+        console.log("getPeople "+cb.status +" with the message : ", cb.returnValue);
+      }
+    });
   };
+  
+  var createMarkup =  function(data, location){
+    var m = $("<div/>");
+    var i;
+    var table = $("<table/>");
+    var thead = $("<tr>");
+    for(i=0;i<categories.length;i++){
+      thead.append("<th class='"+categories[i].class+"'>"+categories[i].title+"</th>")
+    }
+    table.append(thead);
+    for (i=0;i<data.length;i++){
+      table.append("<tr><td>"+data[i].firstName+"</td><td>"+data[i].lastName+"</td><td>"+data[i].age+"</td></tr>")
+    }
+    m.append(table);
+    location.html(m);
+  };
+
+  var categories = [
+    {
+      "title":"First Name",
+      "class":"firstName"
+    },
+    {
+      "title":"Last Name",
+      "class":"lastName"
+    },
+    {
+      "title":"Age",
+      "class":"age"
+    }
+  ];
 
   return {
     
@@ -44,49 +82,19 @@ UIRPC.list = function(){
     procedureName: "displayData",
     asynchronous: true,
     
-    categories: [
-      {
-        "title":"First Name",
-        "class":"firstName"
-      },
-      {
-        "title":"Last Name",
-        "class":"lastName"
-      },
-      {
-        "title":"Age",
-        "class":"age"
-      }
-    ],
-    
-    createMarkup: function(){
-      var m = $("<div/>").addClass("list");
-      var table = $("<table/>");
-      var thead = $("<tr>");
-      for(var i=0;i<this.categories.length;i++){
-        thead.append("<th class='"+this.categories[i].class+"'>"+this.categories[i].title+"</th>")
-      }
-      table.append(thead);
-      m.append(table);
-      return m;
-    },
-    
     init: function(location, options) {
-      
-      // create the markup and insert it into the dom
-      location.append(this.createMarkup())
       
       // register the object
       pmrpc.register({
         publicProcedureName: this.procedureName,
         procedure: function (data, cb) { 
-          console.log("listener received: ", data);
+          console.log("list widget received: ", data);
 
           // do something with data
-          doSomething(data)
+          populateList(data, location)
 
           // this is onSuccess.returnValue
-          cb("this is the callback text");
+          cb("this is the list widget callback text. Everything appears to have worked correctly.");
 
         },
         isAsynchronous: this.asynchronous
