@@ -10,7 +10,7 @@ UIRPC.filter = function() {
     filter: {
       age: {
         from:0,
-        to:100
+        to:43
       }
     }
   };

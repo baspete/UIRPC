@@ -28,6 +28,15 @@ UIRPC.people = function() {
     {firstName:"Allen",lastName:"Jones",age:"39"},
   ];
   
+  var filterMaxAge = function(list, params){
+    var filteredList = [];
+    $.grep(list, function(n, i){
+      if(n.age < params.filter.age.to)
+      filteredList.push(n)
+    });
+    return filteredList;
+  };
+  
   return {
     
     // public properties & methods
@@ -47,7 +56,7 @@ UIRPC.people = function() {
           console.log("people worker received: ", data);
 
           // this is onSuccess.returnValue
-          cb(peopleList);
+          cb(filterMaxAge(peopleList, data));
 
         },
         isAsynchronous: this.asynchronous
