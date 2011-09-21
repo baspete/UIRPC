@@ -1,3 +1,8 @@
+/*
+  Upon initialization, this widget calls the 
+  global event handler with the eventName "TEST_MESSAGE_CREATED" 
+  and pastes the results into the .talker <div>
+*/
 UIRPC.talker = function(){
 
   var displayMessage = function(data) {
@@ -30,8 +35,7 @@ UIRPC.talker = function(){
       });
       
       
-    } // end init
-    
-  }; // end return
+    }
+  };
   
 }();

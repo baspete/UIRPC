@@ -1,6 +1,14 @@
+/*
+  This widget registers a listener for "showTestMessage" .
+  It takes the given value and calls the global event
+  handler with the eventName "TEST_MESSAGE_CREATED". 
+  It passes the returned value back to the callback.
+  
+*/
 UIRPC.listener = function(){
   
-  // modify the data somewhere else
+  // Call a worker to transofrm the message. Pass the 
+  // returned value to the callback provided.
   var calculateMessage = function(data, cb) {
     // edit the markup
     $(".listener").text("I received: "+data);
@@ -25,13 +33,6 @@ UIRPC.listener = function(){
     });  
   };
   
-  // ... or do it right here in this widget
-  var displayMessage = function(data, cb) {
-    $(".listener").text("I received: "+data);
-    var newData = data.toLowerCase();
-    cb(newData);
-  };
-  
   return {
     
     init: function(location, options) {
@@ -40,7 +41,6 @@ UIRPC.listener = function(){
         publicProcedureName: "showTestMessage",
         procedure: function (data, cb) {
           calculateMessage(data, cb);
-          // displayMessage(data, cb); 
         },
         isAsynchronous: true
       });

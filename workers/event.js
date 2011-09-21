@@ -1,10 +1,21 @@
-// Event dispatcher mapping
-UIRPC.events = {
-  TEST_MESSAGE_CREATED: ["showTestMessage"],
-  TEST_MESSAGE_CHANGED: ["calculateTestMessage"]
-};
+/* Global event handler 
 
-// Global event handler
+  When a widget event happens, that widget does a pmrpc.call() to this worker.
+  The event is then dispatched to the subscibers as defined in UIRPC.events.
+  If a callback is provided, that callback is executed upon a successful 
+  completion of the pmrpc.call() method.
+  
+  API:
+  
+  publicProcedureName: "event"
+  params : {
+    data: {
+      eventName: <event name>,
+      data: <data object (map)>
+    }
+  }
+  
+*/
 UIRPC.event = function() {
   
   var dispatchEvent = function(eventName, data, cb){
