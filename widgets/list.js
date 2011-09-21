@@ -5,7 +5,6 @@ Registered Methods:
 
   "displayData" - given a set of params, displays the results in a table
 
-  action: displayData
   params: {
     action: [display, clear],
     settings: {
@@ -28,19 +27,21 @@ UIRPC.list = function(){
 
   // private
   var populateList = function(data, location) {
-    var paramed = unescape($.param(data));
     pmrpc.call({
       destination : window,
-      publicProcedureName : "getPeople",
+      publicProcedureName : "event",
       params : {
-        data: data.settings
+        data: {
+          type: "UPDATE_PEOPLE",
+          data: data
+        }
       },
       onSuccess: function(cb) {
-        console.log("getPeople "+cb.status +" with the message : ", cb.returnValue);
+        console.log("list widget "+cb.status +" with the message : ", cb.returnValue);
         createMarkup(cb.returnValue, location)
       },
       onError: function(cb) {
-        console.log("getPeople "+cb.status +" with the message : ", cb.returnValue);
+        console.log("list widget "+cb.status +" with the message : ", cb.returnValue);
       }
     });
   };
@@ -86,15 +87,15 @@ UIRPC.list = function(){
       
       // register the object
       pmrpc.register({
-        publicProcedureName: this.procedureName,
+        publicProcedureName: "displayData",
         procedure: function (data, cb) { 
-          console.log("list widget received: ", data);
+          // console.log("list widget received: ", data);
 
           // do something with data
-          populateList(data, location)
+//          populateList(data, location)
 
           // this is onSuccess.returnValue
-          cb("this is the list widget callback text. Everything appears to have worked correctly.");
+          cb(populateList(data, location));
 
         },
         isAsynchronous: this.asynchronous

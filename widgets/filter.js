@@ -18,18 +18,18 @@ UIRPC.filter = function() {
   var publish = function(settings, context){
     pmrpc.call({
       destination : context,
-      publicProcedureName : "displayData",
+      publicProcedureName : "event",
       params : {
         data: {
-          action: "display",
-          settings: settings
+          type: "CHANGE_FILTER_PARAMS",
+          data: settings
         }
       },
       onSuccess: function(cb) {
-        console.log("Yay, " + cb.status + "! ", cb.returnValue)
+         console.log("filter widget: "+cb.status +" with the message : ", cb.returnValue);
       },
       onError: function(cb) {
-        console.log("Oh noes, " + cb.status + "! ", cb.returnValue)
+         console.log("filter widget: "+cb.status +" with the message : ", cb.returnValue);
       }
     });
   };

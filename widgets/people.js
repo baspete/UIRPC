@@ -28,11 +28,12 @@ UIRPC.people = function() {
     {firstName:"Allen",lastName:"Jones",age:"39"},
   ];
   
-  var filterMaxAge = function(list, params){
+  var filterMaxAge = function(list, data){
     var filteredList = [];
     $.grep(list, function(n, i){
-      if(n.age < params.filter.age.to)
-      filteredList.push(n)
+      if(n.age < data.filter.age.to) {
+        filteredList.push(n)
+      }
     });
     return filteredList;
   };
@@ -53,11 +54,8 @@ UIRPC.people = function() {
       pmrpc.register({
         publicProcedureName: this.procedureName,
         procedure: function (data, cb) { 
-          console.log("people worker received: ", data);
-
           // this is onSuccess.returnValue
           cb(filterMaxAge(peopleList, data));
-
         },
         isAsynchronous: this.asynchronous
       });
