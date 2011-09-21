@@ -6,7 +6,7 @@ UIRPC.calculator = function(){
   }
   
   return {
-    init: function(location, options) {
+    init: function(options) {
       pmrpc.register({
         publicProcedureName: "calculateTestMessage",
         procedure: function (data, cb) {

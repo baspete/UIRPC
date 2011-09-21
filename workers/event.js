@@ -1,9 +1,10 @@
+// Event dispatcher mapping
 UIRPC.events = {
-  CHANGE_FILTER_PARAMS: ["displayData"],
-  UPDATE_PEOPLE: ["getPeople"],
   TEST_MESSAGE_CREATED: ["showTestMessage"],
   TEST_MESSAGE_CHANGED: ["calculateTestMessage"]
 };
+
+// Global event handler
 UIRPC.event = function() {
   
   var dispatchEvent = function(eventName, data, cb){
@@ -28,7 +29,7 @@ UIRPC.event = function() {
   };
 
   return {
-    init: function(location, options) {
+    init: function(options) {
       pmrpc.register({
         publicProcedureName: "event",
         procedure: function (data, cb) {

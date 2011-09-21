@@ -25,7 +25,7 @@ UIRPC.listener = function(){
     });  
   };
   
-  // ... or do it here
+  // ... or do it right here in this widget
   var displayMessage = function(data, cb) {
     $(".listener").text("I received: "+data);
     var newData = data.toLowerCase();

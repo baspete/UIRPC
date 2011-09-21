@@ -30,6 +30,17 @@ if(typeof $.flatten !== "function"){
 }
 // END UTILITY METHODS
 
+// WORKER FACTORY
+UIRPC.createWorkers = function(workers){
+  $.each(workers, function(i, name) { 
+    var options = {}; // TODO: how to populate this usefully?
+    $.getScript("workers/"+name+".js",function(){
+      console.log("creating "+name+" object");
+      var worker = Object.create(UIRPC[name]);
+      worker.init(options);
+    });
+  });
+}
 // WIDGET FACTORY
 UIRPC.createWidget = function(target){
   var options = {}; // TODO: how to populate this usefully?

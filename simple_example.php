@@ -8,9 +8,6 @@
   <script src="js/uirpc.js"></script>
 </head>
 <body>
-<!-- workers -->
-<div class="widget event"></div>
-<div class="widget calculator"></div>
 
 <!--containers-->
 Talker:
@@ -19,6 +16,7 @@ Listener:
 <div class="widget listener"></div>
 
 <script>
+  UIRPC.createWorkers(["event","calculator"]);
   UIRPC.createWidgets();
 </script>
 </body>
