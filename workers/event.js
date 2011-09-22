@@ -29,7 +29,7 @@ UIRPC.event = function() {
           data: data
         },
         onSuccess: function(returnObj) {
-          console.log("event handler called "+ procedureName +" and succeded with returnValue: ", returnObj.returnValue);
+          console.log("event widget called "+ procedureName +" with: ",data," and succeded with returnValue: ", returnObj.returnValue);
           cb(returnObj.returnValue);
         },
         onError: function(returnObj) {
