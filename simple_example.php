@@ -7,25 +7,25 @@
   <script src="js/pmrpc.js"></script>	 <!-- postmessage syntactic sugar -->
   <script src="js/uirpc.js"></script>
   <script>
-    // Event dispatcher mapping. TODO: is this the right place for this
+    // Event dispatcher mapping. TODO: is this the right place for this?
     UIRPC.events = {
-      TEST_MESSAGE_CREATED: ["showTestMessage"],
-      TEST_MESSAGE_CHANGED: ["calculateTestMessage"]
+      FILTER_CHANGED: ["getLegislators"],
+      LEGISLATORS_CHANGED: ["showList"]
     };
   </script>
 </head>
 <body>
 
 <!--containers-->
-Talker:
-<div class="widget talker"></div>
+Filter:
+<div class="widget filter"></div>
 
-Listener:
-<div class="widget listener"></div>
+List:
+<div class="widget list"></div>
 
 <script>
   // instantiate all the good stuff
-  UIRPC.createWorkers(["event","calculator"]);
+  UIRPC.createWorkers(["event","legislators"]);
   UIRPC.createWidgets(); // createWidgets() crawls the dom, so we don't need arguments here
 </script>
 </body>

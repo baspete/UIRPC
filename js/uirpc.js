@@ -35,7 +35,7 @@ UIRPC.createWorkers = function(workers){
   $.each(workers, function(i, name) { 
     var options = {}; // TODO: how to populate this usefully?
     $.getScript("workers/"+name+".js",function(){
-      console.log("creating "+name+" object");
+      console.log("creating "+name+" worker");
       var worker = Object.create(UIRPC[name]);
       worker.init(options);
     });
@@ -47,7 +47,7 @@ UIRPC.createWidget = function(target){
   var classNames = target.attr("class").split(" ");
   var className = classNames[1]; // class name is the second argument -- others are ignored
   $.getScript("widgets/"+className+".js", function(){ // note same origin limitation here
-    console.log("creating "+className+" object")
+    console.log("creating "+className+" widget")
     var widget = Object.create(UIRPC[className])
     widget.init(target, options)
   });

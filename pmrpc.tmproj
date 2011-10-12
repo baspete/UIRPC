@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>widgets/filter.php</string>
+	<string>js/uirpc.js</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -18,45 +18,59 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>266</integer>
+	<integer>208</integer>
 	<key>metaData</key>
 	<dict>
-		<key>index.php</key>
+		<key>js/uirpc.js</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>10</integer>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>50</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>17</integer>
+		</dict>
+		<key>widgets/listener.js</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>39</integer>
 				<key>line</key>
 				<integer>37</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>9</integer>
+			<integer>10</integer>
 		</dict>
-		<key>widgets/filter.php</key>
+		<key>widgets/talker.js</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>6</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>38</integer>
+				<integer>31</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
-		<key>widgets/list.php</key>
+		<key>workers/calculator.js</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>7</integer>
+				<integer>23</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -66,13 +80,14 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>widgets/filter.php</string>
-		<string>widgets/list.php</string>
-		<string>index.php</string>
+		<string>workers/calculator.js</string>
+		<string>widgets/listener.js</string>
+		<string>widgets/talker.js</string>
+		<string>js/uirpc.js</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{307, 74}, {1021, 804}}</string>
+	<string>{{375, 4}, {1021, 804}}</string>
 </dict>
 </plist>

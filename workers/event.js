@@ -18,7 +18,7 @@
 */
 UIRPC.event = function() {
   
-  var dispatchEvent = function(eventName, data, cb){
+  var dispatchEvent = function(eventName, data){
     console.log("event received: ",eventName);
     for(var i=0;i<UIRPC.events[eventName].length;i++){
       var procedureName = UIRPC.events[eventName][i];
@@ -27,13 +27,6 @@ UIRPC.event = function() {
         publicProcedureName : procedureName,
         params : {
           data: data
-        },
-        onSuccess: function(returnObj) {
-          console.log("event widget called "+ procedureName +" with: ",data," and succeded with returnValue: ", returnObj.returnValue);
-          cb(returnObj.returnValue);
-        },
-        onError: function(returnObj) {
-          console.log("event handler error: ", returnObj);
         }
       });
     }
@@ -43,10 +36,10 @@ UIRPC.event = function() {
     init: function(options) {
       pmrpc.register({
         publicProcedureName: "event",
-        procedure: function (data, cb) {
-          dispatchEvent(data.eventName, data.data, cb);
+        procedure: function (data) {
+          dispatchEvent(data.eventName, data.data);
         },
-        isAsynchronous: true
+        isAsynchronous: false
       });
     }
   };
