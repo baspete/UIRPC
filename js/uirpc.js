@@ -30,6 +30,39 @@ if(typeof $.flatten !== "function"){
 }
 // END UTILITY METHODS
 
+// EVENT DISPATCHER
+UIRPC.dispatcher = function() {
+  
+  var dispatchEvent = function(eventName, data, options){
+    // iterate through the subscribers for this event as defined in UIRPC.events[eventName]
+    for(var i=0;i<UIRPC.events[eventName].length;i++){
+      var procedureName = UIRPC.events[eventName][i];
+      console.log("dispatching ",eventName," to ",procedureName," with data: ",data," and options ",options);
+      pmrpc.call({
+        destination : window,
+        publicProcedureName : procedureName,
+        params : {
+          data: data,
+          options: options
+        }
+      });
+    }
+  };
+
+  return {
+    init: function() {
+      pmrpc.register({
+        publicProcedureName: "event",
+        procedure: function (data) {
+          dispatchEvent(data.eventName, data.data, data.options);
+        },
+        isAsynchronous: false
+      });
+    }
+  };
+  
+}();
+
 // WORKER FACTORY
 UIRPC.createWorkers = function(workers){
   $.each(workers, function(i, name) { 
@@ -57,3 +90,11 @@ UIRPC.createWidgets = function() {
     UIRPC.createWidget($(this));
   });
 };
+
+// INITIALIZATION
+$(document).ready(function(){
+
+  // create the event dispatcher
+  Object.create(UIRPC.dispatcher).init();
+
+})

@@ -1,0 +1,22 @@
+body {
+  font-family: arial, Sans-serif;
+  color: #333333;
+}
+
+.filter {
+  border: 1px solid #CCCCCC;
+  width: 150px;
+  padding: 10px;
+  float: left;
+}
+.list {
+  margin-left: 180px;
+  border: 1px solid #CCCCCC;
+  padding: 10px;
+}
+  .list img {
+    width: 40px;
+  }
+.hover {
+  cursor: pointer;
+}

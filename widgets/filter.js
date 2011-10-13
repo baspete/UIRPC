@@ -1,35 +1,61 @@
 /*
-  Filter Widget
+Filter Widget - renders a set of filters
+
+PROCEDURES REGISTERED
+---------------------
+
+  none
   
-  When the values here are changed, this widget calls the
-  event "FILTER_CHANGED" with the new values.
+EVENTS DISPATCHED
+-----------------
+
+  "FILTER_CHANGED"
+  
 */
 UIRPC.filter = function(){
   
   var getFilterCriteria = function() {
-    return { state: $("#state").val() };
+    var params = {};
+    $(".filter").find("input, select").each(function(){
+      if($(this).val() !== ""){
+        params[$(this).attr("name")] = $(this).val();
+      }
+    });
+    return params;
   };
   
   var states = ['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HA','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
-
+  
   var createMarkup = function(){
-    var markup = $("<select id='state'/>");
-    markup.append("<option>Choose...</option>");
+    var statesList = $("<select name='state'/>");
+    statesList.append("<option value=''>Any</option>");
     for (var i=0;i<states.length;i++){
-      markup.append("<option>"+states[i]+"</option>")
+      statesList.append("<option>"+states[i]+"</option>")
     }
-    $(".filter").html(markup);
+    $(".filter").append("State: ").append(statesList);
+    var chambersList = $("<select name='title'>")
+      .append("<option value=''>Any</option>")
+      .append("<option value='Sen'>Senate</option>")
+      .append("<option value='Rep'>House</option>");
+    $(".filter").append("<br>Chamber: ").append(chambersList);
+    var partiesList = $("<select name='party'>")
+      .append("<option value=''>Any</option>")
+      .append("<option value='D'>D</option>")
+      .append("<option value='R'>R</option>")
+      .append("<option value='I'>I</option>");
+    $(".filter").append("<br>Party: ").append(partiesList);
   };
   
   var bindFilterEvents = function(){
-    $("#state").change(function(){
+    $(".filter").find("input, select").change(function(){
       pmrpc.call({
         destination : window,
         publicProcedureName : "event",
         params : {
           data: {
             eventName: "FILTER_CHANGED",
-            data: getFilterCriteria()
+            data: getFilterCriteria(),
+            options: null
           }
         }
       });
@@ -39,7 +65,7 @@ UIRPC.filter = function(){
 
   return {
     
-    init: function(location, options) {
+    init: function() {
       createMarkup();
       bindFilterEvents();      
     }
