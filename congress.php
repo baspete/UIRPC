@@ -19,12 +19,14 @@
   UIRPC.events = {
     FILTER_CHANGED: ["getLegislators","showRetrievingData"],
     LEGISLATORS_CHANGED: ["showLegislators"],
-    REQUEST_COMMITTEES: ["getCommittees"],
-    GET_COMMITTEES_RESULTS: ["showCommittees"]
+    REQUEST_DETAILS: ["getCommittees","getFacebookInfo","getTwitterInfo"],
+    GET_COMMITTEES_RESULTS: ["showCommittees"],
+    GET_FACEBOOK_INFO_RESULTS: ["showFacebookInfo"],
+    GET_TWITTER_INFO_RESULTS: ["showTwitterInfo"]
   };
 
   // instantiate workers and widgets
-  UIRPC.createWorkers(["congress"]);
+  UIRPC.createWorkers(["congress","facebook","twitter"]); // TODO: can we automate this?
   UIRPC.createWidgets(); // createWidgets() crawls the dom, so we don't need arguments here
 </script>
 </body>

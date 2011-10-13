@@ -31,6 +31,8 @@ UIRPC.congress = function(){
   var legislatorsMethod = "legislators.getList.json";
   var committeesMethod = "committees.allForLegislator";
 
+
+  // Poll the sunlight labs legislators api
   var getLegislators = function(params, options) {
     $.ajax({
       url: baseUrl + legislatorsMethod + "?apikey=" + apiKey,
@@ -55,10 +57,11 @@ UIRPC.congress = function(){
     });
   };
   
+  // Poll the sunlight labs committees api
   var getCommittees = function(params, options) {
     $.ajax({
       url: baseUrl + committeesMethod + "?apikey=" + apiKey,
-      data: params,
+      data: {bioguide_id: params.bioguide_id},
       dataType: 'jsonp',
       cache: true,
       jsonp: 'jsonp', // sunlightlabs needs this to return jsonp
