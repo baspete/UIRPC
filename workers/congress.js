@@ -21,7 +21,7 @@ EVENTS DISPATCHED
 -----------------
 
   "LEGISLATORS_CHANGED"
-  "COMMITTEES_CHANGED"
+  "GET_COMMITTEES_RESULTS"
 
 */
 UIRPC.congress = function(){
@@ -63,13 +63,12 @@ UIRPC.congress = function(){
       cache: true,
       jsonp: 'jsonp', // sunlightlabs needs this to return jsonp
       success: function(data) {
-        // console.log("received committees: ", data.response.committees);
         pmrpc.call({
           destination : window,
           publicProcedureName : "event",
           params : {
             data: {
-              eventName: "COMMITTEES_CHANGED",
+              eventName: "GET_COMMITTEES_RESULTS",
               data: data.response.committees,
               options: options
             }

@@ -46,28 +46,33 @@ UIRPC.filter = function(){
     $(".filter").append("<br>Party: ").append(partiesList);
   };
   
-  var bindFilterEvents = function(){
-    $(".filter").find("input, select").change(function(){
-      pmrpc.call({
-        destination : window,
-        publicProcedureName : "event",
-        params : {
-          data: {
-            eventName: "FILTER_CHANGED",
-            data: getFilterCriteria(),
-            options: null
-          }
+  var filter = function(){
+    pmrpc.call({
+      destination : window,
+      publicProcedureName : "event",
+      params : {
+        data: {
+          eventName: "FILTER_CHANGED",
+          data: getFilterCriteria(),
+          options: null
         }
-      });
-      
-    })
+      }
+    });
   };
-
+  
   return {
     
     init: function() {
+
       createMarkup();
-      bindFilterEvents();      
+      
+      // initial rendering
+      filter();
+      
+      // changing filter criteria fires filter()
+      $(".filter").find("input, select").change(function(){
+        filter();
+      })
     }
 
   };

@@ -17,10 +17,10 @@
 <script>
   // Event dispatcher mapping. TODO: is this the right place for this?
   UIRPC.events = {
-    FILTER_CHANGED: ["getLegislators"],
+    FILTER_CHANGED: ["getLegislators","showRetrievingData"],
     LEGISLATORS_CHANGED: ["showLegislators"],
-    DETAILS_LINK_CLICKED: ["getCommittees"],
-    COMMITTEES_CHANGED: ["showCommittees"]
+    REQUEST_COMMITTEES: ["getCommittees"],
+    GET_COMMITTEES_RESULTS: ["showCommittees"]
   };
 
   // instantiate workers and widgets

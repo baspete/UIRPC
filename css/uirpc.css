@@ -11,11 +11,29 @@ body {
 }
 .list {
   margin-left: 180px;
-  border: 1px solid #CCCCCC;
-  padding: 10px;
 }
-  .list img {
+.numResults {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.legislator {
+  border: 1px solid #CCCCCC;
+  margin-bottom: 10px;
+  padding: 10px;
+  overflow: auto;
+}
+  .legislator img {
     width: 40px;
+    float: left;
+  }
+  .legislator .name {
+    float: left;
+    margin-left: 10px;
+  }
+  .legislator .committees {
+    clear: both;
+    padding: 10px 0 0;
+    margin: 0 0 0 60px;
   }
 .hover {
   cursor: pointer;

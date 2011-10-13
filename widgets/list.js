@@ -40,7 +40,8 @@ PROCEDURES REGISTERED
       website: "http://flake.house.gov/"
       youtube_url: "http://www.youtube.com/flakeoffice"
     }}
-  ]
+  ],
+  options: null
   
   "showCommittees" - display a legislator's committee membership(s)
   data: [
@@ -52,21 +53,31 @@ PROCEDURES REGISTERED
   ],
   options: { target: <bioguide_id> }
   
+  "showRetrievingData" - let the user know the data is repopulating
+  data: null,
+  options: null
+  
 EVENTS DISPATCHED
 -----------------
 
-  "DETAILS_LINK_CLICKED"
+  "REQUEST_COMMITTEES"
 
 */
 UIRPC.list = function(){
+  
       
   var showLegislators = function(data, options){
     var markup = $("<div class='legislators'/>");
+    markup.append("<div class='numResults'>Results: " + data.length + "</div");
+    
     for(var i=0;i<data.length;i++){
       var legislator = data[i].legislator;
 
       var container = $("<div class='legislator' id='"+legislator.bioguide_id+"'/>");
       var photo = $("<img src='http://www.opencongress.org/images/photos/thumbs_125/"+legislator.govtrack_id+".jpeg' />")
+        .hover(function(){
+          $(this).toggleClass('hover');
+        })
         .click(function(){
           var bioguide_id = $(this).closest(".legislator").attr("id");
           pmrpc.call({
@@ -74,15 +85,12 @@ UIRPC.list = function(){
             publicProcedureName : "event",
             params : {
               data: {
-                eventName: "DETAILS_LINK_CLICKED",
+                eventName: "REQUEST_COMMITTEES",
                 data: { bioguide_id: bioguide_id },
                 options: { target: bioguide_id }
               }
             }
           });
-        })
-        .hover(function(){
-          $(this).toggleClass('hover');
         });
       var fullName = "<span class='name'>"+legislator.firstname+" "+legislator.lastname+"</span>";
 
@@ -104,6 +112,10 @@ UIRPC.list = function(){
     $("#"+options.target).append(committees);
   };
   
+  var showCalculating = function(data, options){
+    $(".numResults").text("Retrieving Data...");
+  };
+  
   return {
     
     init: function(location, options) {
@@ -120,6 +132,14 @@ UIRPC.list = function(){
         publicProcedureName: "showCommittees",
         procedure: function (data, options) {
           showCommittees(data, options);
+        },
+        isAsynchronous: true
+      });
+      
+      pmrpc.register({
+        publicProcedureName: "showRetrievingData",
+        procedure: function (data, options) {
+          showCalculating(data, options);
         },
         isAsynchronous: true
       });
