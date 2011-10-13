@@ -96,5 +96,16 @@ $(document).ready(function(){
 
   // create the event dispatcher
   Object.create(UIRPC.dispatcher).init();
+  
+  // log the available procedures
+  pmrpc.discover({
+    callback: function(methods){
+      var s = "discovered methods: ";
+      for(var i=0;i<methods.length;i++){
+        s += methods[i].publicProcedureName + " ";
+      }
+      console.log(s);
+    }
+  })
 
 })

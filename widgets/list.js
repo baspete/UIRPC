@@ -8,36 +8,36 @@ PROCEDURES REGISTERED
   "showLegislators" - Renders an array of legislators based on the api at http://services.sunlightlabs.com/docs/congressapi/legislators.get(List)/
   data:  [
     {"legislator": {
-      bioguide_id: "F000444"
-      birthdate: "1962-12-31"
-      chamber: "house"
-      congress_office: "240 Cannon House Office Building"
-      congresspedia_url: "http://www.opencongress.org/wiki/Jeff_Flake"
-      crp_id: "N00009573"
-      district: "6"
-      email: ""
-      eventful_id: ""
-      facebook_id: "congressmanjeffflake"
-      fax: "202-226-4386"
-      fec_id: "H0AZ01184"
-      firstname: "Jeff"
-      gender: "M"
-      govtrack_id: "400134"
-      in_office: <bool>
-      lastname: "Flake"
-      middlename: ""
-      name_suffix: ""
-      nickname: ""
-      official_rss: ""
-      party: "R"
-      phone: "202-225-2635"
-      senate_class: ""
-      state: "AZ"
-      title: "Rep"
-      twitter_id: "JeffFlake"
-      votesmart_id: "28128"
-      webform: "http://www.house.gov/writerep"
-      website: "http://flake.house.gov/"
+      bioguide_id: "F000444",
+      birthdate: "1962-12-31",
+      chamber: "house",
+      congress_office: "240 Cannon House Office Building",
+      congresspedia_url: "http://www.opencongress.org/wiki/Jeff_Flake",
+      crp_id: "N00009573",
+      district: "6",
+      email: "",
+      eventful_id: "",
+      facebook_id: "congressmanjeffflake",
+      fax: "202-226-4386",
+      fec_id: "H0AZ01184",
+      firstname: "Jeff",
+      gender: "M",
+      govtrack_id: "400134",
+      in_office: true,
+      lastname: "Flake",
+      middlename: "",
+      name_suffix: "",
+      nickname: "",
+      official_rss: "",
+      party: "R",
+      phone: "202-225-2635",
+      senate_class: "",
+      state: "AZ",
+      title: "Rep",
+      twitter_id: "JeffFlake",
+      votesmart_id: "28128",
+      webform: "http://www.house.gov/writerep",
+      website: "http://flake.house.gov/",
       youtube_url: "http://www.youtube.com/flakeoffice"
     }}
   ],
@@ -72,8 +72,7 @@ UIRPC.list = function(){
     
     for(var i=0;i<data.length;i++){
       var legislator = data[i].legislator;
-
-      var container = $("<div class='legislator' id='"+legislator.bioguide_id+"'/>");
+      var container = $("<div class='legislator "+legislator.party+"' id='"+legislator.bioguide_id+"'/>");
       var photo = $("<img src='http://www.opencongress.org/images/photos/thumbs_125/"+legislator.govtrack_id+".jpeg' />")
         .hover(function(){
           $(this).toggleClass('hover');
@@ -93,12 +92,11 @@ UIRPC.list = function(){
           });
         });
       var fullName = "<span class='name'>"+legislator.firstname+" "+legislator.lastname+"</span>";
-
-      container.append(photo).append(fullName);
+      var state = "<span class='state'>("+legislator.state+")</span>";
+      container.append(photo).append(fullName).append(state);
       markup.append(container)
     }
     $(".list").html(markup);
-    
   };
   
   var showCommittees = function(data, options){
