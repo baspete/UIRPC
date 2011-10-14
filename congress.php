@@ -1,3 +1,13 @@
+<!--
+CONGRESS APPLICATION
+
+This demo provides a filtered list of legislators and some details about each legislator.
+
+Change the filter parameters to repopulate the list, and click on 
+a legislator's photo to see their details.
+
+View the javascript console to see the event dispatcher at work.  
+-->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
