@@ -6,6 +6,8 @@ PROCEDURES REGISTERED
 
   "getFacebookInfo" - some facebook data
   data: {
+    avatar_url: <url>,
+    wall_url: <url>,
     facebook_id: <facebook id> (required)
   },
   options: {target: <bioguide_id> } (required)

@@ -28,6 +28,7 @@
   // instantiate workers and widgets
   UIRPC.createWorkers(["congress","facebook","twitter"]); // TODO: can we automate this?
   UIRPC.createWidgets(); // createWidgets() crawls the dom, so we don't need arguments here
+  
 </script>
 </body>
 </html>

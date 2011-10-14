@@ -158,7 +158,7 @@ UIRPC.list = function(){
   return {
     
     init: function(location, options) {
-      
+
       pmrpc.register({
         publicProcedureName: "showLegislators",
         procedure: function (data, options) {
@@ -198,7 +198,7 @@ UIRPC.list = function(){
         },
         isAsynchronous: true
       });
-      
+
     } 
     
   }; 
