@@ -62,6 +62,12 @@ PROCEDURES REGISTERED
   },
   options: { target: <bioguide_id> }
   
+  "showTwitterInfo" - display a legislator's recent tweets
+  data: [
+    {text: <tweet text> }
+  ],
+  options: { target: <bioguide_id> }
+  
   "showRetrievingData" - let the user know the data is repopulating
   data: null,
   options: null
