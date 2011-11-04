@@ -1,4 +1,4 @@
-UIRPC PROJECT
+BAS UIRPC PROJECT
 
 Purpose behind this project is to try a development model which 
 encourages front-end developers to thinkfirst about interactions, 
