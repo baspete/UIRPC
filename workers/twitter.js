@@ -6,7 +6,7 @@ PROCEDURES REGISTERED
 
   "getTwitterInfo" - some twitter data
   data: {
-    twitter_id <facebook id> (required)
+    twitter_id <twitter id> (required)
   },
   options: {target: <bioguide_id> } (required)
   
